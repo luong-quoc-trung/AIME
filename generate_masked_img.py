@@ -1,17 +1,16 @@
+import cv2
 from fastai import *
 from fastai.vision import *
 import os
-import cv2
 from skimage import io
-
 from torch.utils.data import Dataset, DataLoader
 import torchvision
-from skimage import io
 
 img_path = Path('data/all_images/image_moderation_images')
 gan_path = Path('data/gan/')
-train_df_path = Path('./data/imgs_train.csv')
-saved_models_folder = Path('./saved_models/')
+train_df_path = Path('data/imgs_train.csv')
+test_df_path = Path('data/test_set.csv')
+saved_models_folder = Path('saved_models/')
 
 class ImageDataSet(Dataset):
     def __init__(self, dataframe, img_folder_path):
@@ -75,7 +74,6 @@ class visualize():
         return img,masked
     
     def build_mask_dataset(self):
-#         shutil.rmtree('.masked_images/')
         os.makedirs( gan_path/'masked_images/')
         for i in range(len(self.data.dataframe)):
             if self.name in self.data.dataframe.labels[i]:
@@ -97,12 +95,12 @@ def get_model():
 
 
 if __name__ == '__main__':
-    ds =ImageDataSet(pd.read_csv(train_df_path),
-                      img_path)
+    ds = ImageDataSet(pd.read_csv(train_df_path),img_path)
 
     md = get_model().cuda()
     md.load_state_dict(torch.load(saved_models_folder/'text.pth'))
     pool_layer = md[-1][0]
     fc_weight = md[-1][-1].weight
 
-    visual.viz(1231,1,90)
+    visual = visualize(ds,md,pool_layer,fc_weight,'text')
+    visual.build_mask_dataset()
