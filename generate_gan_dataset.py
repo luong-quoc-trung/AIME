@@ -5,9 +5,12 @@ import random
 import os
 import pandas as pd
 
-img_path = Path('./Data/all_images/image_moderation_images')
-gan_path = Path('./Data/GAN/')
-train_df_path = Path('./Data/imgs_train.csv')
+img_path = Path('data/all_images/image_moderation_images')
+gan_path = Path('data/gan/')
+train_df_path = Path('./data/imgs_train.csv')
+test_df_path = Path('./data/test_set.csv')
+saved_models_folder = Path('./saved_models/')
+
 
 font_text = ['Arial']
 font_size = [18,20,22,24]
