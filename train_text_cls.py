@@ -8,11 +8,11 @@ from torch.utils.data import Dataset, DataLoader
 import torchvision
 from skimage import io
 
-img_path = Path('./Data/all_images/image_moderation_images')
-gan_path = Path('./Data/GAN/')
-train_df_path = Path('./Data/imgs_train.csv')
-test_df_path = Path('./Data/test_set.csv')
-saved_models_folder = Path('./Saved_models/')
+img_path = Path('data/all_images/image_moderation_images')
+gan_path = Path('data/gan/')
+train_df_path = Path('./data/imgs_train.csv')
+test_df_path = Path('./data/test_set.csv')
+saved_models_folder = Path('./saved_models/')
 
 def create_databunch(label):
     train_df = pd.read_csv(train_df_path).sample(frac=1.).reset_index(drop=True)

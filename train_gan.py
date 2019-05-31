@@ -3,11 +3,15 @@ from fastai.vision import *
 from fastai.callbacks import *
 from fastai.vision.gan import *
 
-path = Path('./Data/GAN')
+img_path = Path('data/all_images/image_moderation_images')
+gan_path = Path('data/gan/')
+train_df_path = Path('./data/imgs_train.csv')
+test_df_path = Path('./data/test_set.csv')
+saved_models_folder = Path('./saved_models/')
 
 arch = models.resnet34
-src = ImageImageList.from_folder(path/'clean').split_by_rand_pct(0.1, seed=123)
-databunch = (src.label_from_func(lambda x: path/'text_added'/x.name)
+src = ImageImageList.from_folder(gan_path/'clean').split_by_rand_pct(0.1, seed=123)
+databunch = (src.label_from_func(lambda x: gan_path/'text_added'/x.name)
                 .transform(get_transforms(do_flip = False, max_rotate=0, max_warp=0),
                             tfm_y=True,size=(298,298))
                 .databunch(bs=32).normalize(imagenet_stats,do_y=True))

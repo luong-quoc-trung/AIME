@@ -8,10 +8,10 @@ from torch.utils.data import Dataset, DataLoader
 import torchvision
 from skimage import io
 
-img_path = Path('./Data/all_images/image_moderation_images')
-gan_path = Path('./Data/GAN/')
-train_df_path = Path('./Data/imgs_train.csv')
-saved_models_folder = Path('./Saved_models/')
+img_path = Path('data/all_images/image_moderation_images')
+gan_path = Path('data/gan/')
+train_df_path = Path('./data/imgs_train.csv')
+saved_models_folder = Path('./saved_models/')
 
 class ImageDataSet(Dataset):
     def __init__(self, dataframe, img_folder_path):
@@ -101,7 +101,7 @@ if __name__ == '__main__':
                       img_path)
 
     md = get_model().cuda()
-    md.load_state_dict(torch.load(saved_models_folder/'text.pth',map_location='cpu'))
+    md.load_state_dict(torch.load(saved_models_folder/'text.pth'))
     pool_layer = md[-1][0]
     fc_weight = md[-1][-1].weight
 
