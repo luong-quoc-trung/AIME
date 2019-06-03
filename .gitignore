@@ -3,3 +3,4 @@ text_localization/frozen_east_text_detection.pb
 *.pyc
 *.swp
 *.pb
+neuralgym_logs/
